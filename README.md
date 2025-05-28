@@ -49,4 +49,45 @@ This project implements an Image Moderation API using FastAPI for the backend an
     * **Response:** JSON object containing filename, content type, and a `moderation_report` with categories (e.g., violence, nudity) and their detection status/confidence.
 
 
+## 5. Setup Instructions
+
+### Prerequisites
+* Docker Desktop (includes Docker and Docker Compose)
+* Git
+
+### Steps
+
+1.  **Clone the repository:**
+    ```bash
+    git clone "https://github.com/kmsibtain/image-moderation"
+    cd image-moderation-api
+    ```
+
+2.  **Create `.env` file:**
+    Copy the `.env.example` file to `.env` in the root directory. This file will contain environment variables for your application.
+    ```bash
+    cp .env.example .env
+    ```
+    The `.env` file should look like this (you can modify `MONGO_URI` if your MongoDB setup is different):
+    ```
+    # Backend Environment Variables
+    MONGO_URI=mongodb://mongodb:27017/image_moderation
+    ```
+
+3.  **Build and Run with Docker Compose:** 
+    From the `image-moderation-api` root directory, run:
+    ```bash
+    docker-compose up --build
+    ```
+    This command will:
+    * Build the backend Docker image based on `backend/Dockerfile.backend`.
+    * Build the frontend Docker image based on `frontend/Dockerfile.frontend`.
+    * Start a MongoDB container.
+    * Start the backend FastAPI container, connected to MongoDB.
+    * Start the frontend Nginx server, serving the React application and configured to communicate with the backend.
+
+### Accessing the Application
+
+* **Frontend UI:** Open your web browser and navigate to `http://localhost`.
+* **Backend API Documentation (Swagger UI):** Open your web browser and navigate to `http://localhost:7000/docs`.
 
