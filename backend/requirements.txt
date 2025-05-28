@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+pymongo
+python-dotenv
+python-jose[cryptography] # For JWT (if you choose to use it, though simpler bearer tokens might suffice)
+passlib[bcrypt] # For password hashing if you store user credentials
+Pillow # For image processing (though you might integrate with an external moderation service)
+python-multipart # For file uploads
+numpy

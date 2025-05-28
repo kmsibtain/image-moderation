@@ -1,0 +1,47 @@
+
+
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb_image_moderation
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - app-network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.backend
+    container_name: moderation_backend
+    ports:
+      - "7000:7000"
+    environment:
+      MONGO_URI: mongodb://mongodb:27017/image_moderation # Connect to MongoDB service by name
+    depends_on:
+      - mongodb
+    networks:
+      - app-network
+    volumes:
+      - ./backend/app:/app # Mount for development convenience (optional)
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.frontend
+    container_name: moderation_frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  mongo_data:
